@@ -14,8 +14,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const sessionOpts: SessionOptions = {
-	name: "SID",
-	secret: "hoi",
+	name: <string>process.env.SESSION_NAME,
+	secret: <string>process.env.SESSION_SECRET,
 	saveUninitialized: false,
 	resave: false,
 	// @ts-ignore
@@ -26,7 +26,7 @@ const sessionOpts: SessionOptions = {
 	},
 };
 
-if (app.get("env") === "production") {
+if (process.env.NODE_ENV === "production") {
 	app.set("trust proxy", 1);
 	// @ts-ignore
 	sessionOpts.cookie.secure = true;

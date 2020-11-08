@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-import app from "../app";
 import { MongoMemoryServer } from "mongodb-memory-server";
+import logger from "../logger";
+import app from "../app";
 
 async function connect(): Promise<void> {
 	let uri: string;
@@ -17,15 +18,27 @@ async function connect(): Promise<void> {
 				useNewUrlParser: true,
 				useUnifiedTopology: true,
 			})
-			.then(() => resolve())
+			.then(() => {
+				logger.log("info", "Successfully connected to DB");
+				resolve();
+			})
 			.catch((err) => {
+				logger.log("error", "Failed to connected to DB");
 				throw Error(err);
 			});
 	});
 }
 
 async function disconnect(): Promise<void> {
-	await mongoose.disconnect();
+	await mongoose
+		.disconnect()
+		.then(() => {
+			logger.log("info", "Successfully disconnected to DB");
+		})
+		.catch((err) => {
+			logger.log("error", "Failed to disconnected to DB");
+			throw Error(err);
+		});
 }
 
 export default { connect, disconnect };

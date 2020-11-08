@@ -1,16 +1,17 @@
+import "dotenv/config";
+import logger from "./src/logger";
 import app from "./src/app";
-import dotenv from "dotenv";
 import database from "./src/config/database";
 
 export default async function start(): Promise<void> {
 	try {
-		dotenv.config();
+		logger.log("info", "Starting API");
 		await database.connect();
 		app.listen(process.env.PORT, () => {
-			// eslint-disable-next-line no-console
-			console.log("API Ready");
+			logger.log("info", "API Listening");
 		});
 	} catch (error) {
+		logger.log("error", "An error occurs");
 		await database.disconnect();
 	}
 }
