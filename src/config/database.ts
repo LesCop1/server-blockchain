@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import logger from "../logger";
-import app from "../app";
 
 async function connect(): Promise<void> {
 	let uri: string;
-	if (app.get("env") === "production") {
+	if (process.env.NODE_ENV === "production") {
 		uri = `${<string>process.env.MONGO_URL}${<string>process.env.MONGO_NAME}`;
 	} else {
 		const mongod = new MongoMemoryServer();

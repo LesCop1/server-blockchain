@@ -22,7 +22,7 @@ const sessionOpts: SessionOptions = {
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	store: new MongoStore({ mongooseConnection: mongoose.connection }),
 	cookie: {
-		maxAge: 1000 * 60 * 60 * 24 * 7,
+		maxAge: parseInt(<string>process.env.SESSION_MAXAGE),
 	},
 };
 

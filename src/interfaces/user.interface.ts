@@ -1,7 +1,7 @@
+import DBDocument from "./dbdocument.interface";
 import { Nationalities } from "../globals";
 
-export default interface IUser extends Document {
-	_id: string;
+export default interface IUser extends DBDocument {
 	firstname: string;
 	lastname: string;
 	nationality: Nationalities;
@@ -20,6 +20,4 @@ export default interface IUser extends Document {
 		numberOfMinedBlock: number;
 		timeSpentMining: number;
 	};
-	createdAt: Date;
-	updatedAt: Date;
 }
