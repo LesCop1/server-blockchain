@@ -5,10 +5,21 @@ export default interface IUser extends DBDocument {
 	firstname: string;
 	lastname: string;
 	nationality: Nationalities;
-	birthDate: Date;
+	birthDate: string | Date;
 	email: string;
 	password?: string;
-	balance: number;
+	balance: {
+		EC: number;
+		USD: number;
+	};
+	history: [
+		{
+			type: "transfer" | "mining";
+			date: string;
+			description: string[];
+			value: string[];
+		}
+	];
 	stats: {
 		connections: [
 			{

@@ -13,10 +13,9 @@ export default function config(): void {
 			},
 			async (email, password, done) => {
 				try {
-					const user = await SUser.getByEmail(email);
+					const user: IUser | null = await SUser.getByEmail(email);
 					if (!user) return done(null, false);
-
-					const doesMatch = await SUser.isValidPassword(user._id, password);
+					const doesMatch = await SUser.isValidPassword(user._id!, password);
 					if (!doesMatch) return done(null, false);
 
 					return done(null, user);

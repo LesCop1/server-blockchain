@@ -1,18 +1,18 @@
 import DBDocument from "./dbdocument.interface";
 import ITransaction from "./transaction.interface";
-import IPool from "./pool.interface";
 import IUser from "./user.interface";
 
 export default interface IBlock extends DBDocument {
 	index: number;
 	transactions: string[] | ITransaction[];
-	pool: string | IPool;
-	verification: [
+	pools: string[];
+	verifications: [
 		{
-			controller?: string | IUser;
-			result?: boolean;
-		}
+			controller: string | IUser;
+			nonce: number;
+		}?
 	];
 	previousHash: string;
-	hash: string;
+	hash?: string;
+	nonce?: number;
 }

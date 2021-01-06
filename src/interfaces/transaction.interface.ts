@@ -6,6 +6,6 @@ export default interface ITransaction extends DBDocument {
 	from: string | IUser;
 	to: string | IUser;
 	amount: number[];
-	author: string | IUser;
+	type: "coin" | "usd";
 	block?: string | IBlock;
 }

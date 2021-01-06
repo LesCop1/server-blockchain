@@ -14,10 +14,12 @@ function auth(
 ): void {
 	passport.authenticate("local", function (err, user) {
 		if (err) return Controller.sendFailureResponse(res, err);
-		if (!user) return Controller.sendFailureResponse(res, new Error("No user found"));
+		if (!user) return Controller.sendFailureResponse(res, new Error("Credentials do not match."));
 
 		req.logIn(user, function (err) {
-			if (err) return Controller.sendFailureResponse(res, err);
+			if (err) {
+				return Controller.sendFailureResponse(res, err);
+			}
 
 			if (cb) {
 				return cb(req, res, next, user);
@@ -29,9 +31,14 @@ function auth(
 }
 
 function signout(req: Request, _res: Response, next: NextFunction): void {
-	req.logout();
+	req.logOut();
 
 	return next();
 }
 
-export default { authHandler, auth, signout };
+function isAuth(req: Request, _res: Response, next: NextFunction): void {
+	if (req.isAuthenticated()) return next();
+	return;
+}
+
+export default { auth, signout, isAuth, authHandler };

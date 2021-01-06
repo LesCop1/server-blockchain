@@ -17,7 +17,14 @@ const logger = winston.createLogger({
 });
 
 if (process.env.NODE_ENV !== "production") {
-	logger.add(new winston.transports.Console());
+	const logFormat = winston.format.printf(function (info) {
+		return `${new Date().toISOString()} - ${info.level}: ${JSON.stringify(info.message, null, 4)}`;
+	});
+	logger.add(
+		new winston.transports.Console({
+			format: winston.format.combine(winston.format.colorize(), logFormat),
+		})
+	);
 }
 
 export default logger;

@@ -13,14 +13,13 @@ const TransactionSchema = new mongoose.Schema(
 			required: true,
 		},
 		amount: {
-			type: [Number],
+			type: Number,
 			required: true,
-			default: [],
 		},
-		author: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "User",
+		type: {
+			type: String,
 			required: true,
+			enum: ["coin", "usd"],
 		},
 		block: {
 			type: mongoose.Schema.Types.ObjectId,

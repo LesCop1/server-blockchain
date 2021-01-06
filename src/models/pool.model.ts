@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { PoolTypes } from "../globals";
 
 const PoolSchema = new mongoose.Schema(
 	{
@@ -10,11 +9,6 @@ const PoolSchema = new mongoose.Schema(
 				required: true,
 			},
 		],
-		type: {
-			type: String,
-			enum: Object.values(PoolTypes),
-			required: true,
-		},
 	},
 	{ timestamps: true }
 );

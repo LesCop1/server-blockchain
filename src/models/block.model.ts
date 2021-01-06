@@ -14,20 +14,22 @@ const BlockSchema = new mongoose.Schema(
 				required: true,
 			},
 		],
-		pool: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Pool",
-			required: true,
-		},
-		verification: {
+		pools: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Pool",
+				required: true,
+			},
+		],
+		verifications: {
 			type: [
 				{
 					controller: {
 						type: mongoose.Schema.Types.ObjectId,
 						ref: "User",
 					},
-					result: {
-						type: Boolean,
+					nonce: {
+						type: Number,
 					},
 				},
 			],
@@ -40,6 +42,10 @@ const BlockSchema = new mongoose.Schema(
 		},
 		hash: {
 			type: String,
+			required: true,
+		},
+		nonce: {
+			type: Number,
 			required: true,
 		},
 	},

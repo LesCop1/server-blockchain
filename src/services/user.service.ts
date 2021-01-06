@@ -6,7 +6,7 @@ export async function create(
 	firstname: string,
 	lastname: string,
 	nationality: Nationalities,
-	birthDate: Date,
+	birthDate: string,
 	email: string,
 	password: string
 ): Promise<IUser> {
@@ -17,6 +17,10 @@ export async function create(
 		birthDate,
 		email,
 		password,
+		balance: {
+			EC: 100,
+			USD: 200,
+		},
 	}).save());
 }
 
@@ -24,7 +28,7 @@ export async function exists(
 	firstname: string,
 	lastname: string,
 	nationality: Nationalities,
-	birthDate: Date,
+	birthDate: string,
 	email: string
 ): Promise<boolean> {
 	const user = await MUser.findOne({
@@ -44,6 +48,10 @@ export async function getById(id: string): Promise<IUser | null> {
 
 export async function getByEmail(email: string): Promise<IUser | null> {
 	return MUser.findOne({ email: email }).lean();
+}
+
+export async function getByEmailLike(email: string): Promise<IUser | null> {
+	return MUser.findOne({ email: "/" + email + "/" }).lean();
 }
 
 export async function isValidPassword(id: string, password: string): Promise<boolean> {

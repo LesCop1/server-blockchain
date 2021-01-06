@@ -3,6 +3,8 @@ import CUser from "../controllers/user.controller";
 
 const router = Router();
 
-router.get("/", CUser.getSelf);
+router.get("/dashboard", CUser.getDashboard);
+router.get("/search", CUser.getUserByEmail);
+router.get("/settings");
 
 export default router;
