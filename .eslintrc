@@ -27,16 +27,17 @@
         "no-console": "error",
         "prettier/prettier": [
             "error",
-            {
-                "endOfLine": "auto"
-            }
+          {
+            "endOfLine": "auto"
+          }
         ],
-        "@typescript-eslint/no-this-alias": 0,
-        "@typescript-eslint/no-unsafe-return": 0,
-        "@typescript-eslint/no-unsafe-call": 0,
-        "@typescript-eslint/no-misused-promises": 0,
-        "@typescript-eslint/ban-ts-comment": 0,
-        "@typescript-eslint/no-non-null-assertion": 0,
-        "@typescript-eslint/no-unsafe-member-access": 0
+      "@typescript-eslint/no-this-alias": 0,
+      "@typescript-eslint/no-unsafe-return": 0,
+      "@typescript-eslint/no-unsafe-call": 0,
+      "@typescript-eslint/no-misused-promises": 0,
+      "@typescript-eslint/ban-ts-comment": 0,
+      "@typescript-eslint/no-non-null-assertion": 0,
+      "@typescript-eslint/no-unsafe-member-access": 0,
+      "@typescript-eslint/no-explicit-any": 0
     }
 }

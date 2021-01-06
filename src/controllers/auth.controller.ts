@@ -7,11 +7,11 @@ import guard from "../utils/guard";
 async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {
 	const { firstname, lastname, nationality, birthDate, email, password } = <IUser>req.body;
 	try {
-		const userExists: boolean = await SUser.exists(firstname, lastname, nationality, birthDate, email);
+		const userExists = await SUser.getByEmail(email);
 		if (userExists) {
-			return Controller.redirect(res, "/signin");
+			return Controller.sendFailureResponse(res, new Error("Email already in use."));
 		} else {
-			await SUser.create(firstname, lastname, nationality, birthDate, email, password!);
+			await SUser.create(firstname, lastname, nationality, <string>birthDate, email, password!);
 
 			guard.auth(req, res, next, (_req1, res1, _next1, user) => {
 				return Controller.sendSuccessResponse(res1, user);
@@ -24,7 +24,7 @@ async function signup(req: Request, res: Response, next: NextFunction): Promise<
 
 function signin(_req: Request, res: Response): void {
 	try {
-		return Controller.redirect(res, "/");
+		return Controller.sendSuccessResponse(res);
 	} catch (e) {
 		return Controller.sendFailureResponse(res, e);
 	}
@@ -33,7 +33,7 @@ function signin(_req: Request, res: Response): void {
 function signout(req: Request, res: Response): void {
 	try {
 		req.logOut();
-		return Controller.redirect(res, "/");
+		return Controller.sendSuccessResponse(res);
 	} catch (err) {
 		return Controller.sendFailureResponse(res, err);
 	}

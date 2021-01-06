@@ -3,6 +3,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import logger from "../logger";
 
 async function connect(): Promise<void> {
+	logger.log("info", "Connecting to Database...");
 	let uri: string;
 	if (process.env.NODE_ENV === "production") {
 		uri = `${<string>process.env.MONGO_URL}${<string>process.env.MONGO_NAME}`;

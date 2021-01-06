@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import { Nationalities } from "../globals";
 
+//TODO : Index nom prenom nationalité ; email
 const UserSchema = new mongoose.Schema(
 	{
 		firstname: {
@@ -18,7 +19,7 @@ const UserSchema = new mongoose.Schema(
 			enum: Object.values(Nationalities),
 		},
 		birthDate: {
-			type: Date,
+			type: String,
 			required: true,
 		},
 		email: {
@@ -29,10 +30,25 @@ const UserSchema = new mongoose.Schema(
 			type: String,
 		},
 		balance: {
-			type: Number,
-			required: true,
-			default: 0,
+			EC: {
+				type: Number,
+				required: true,
+				default: 0,
+			},
+			USD: {
+				type: Number,
+				required: true,
+				default: 0,
+			},
 		},
+		history: [
+			{
+				type: String,
+				date: String,
+				description: [String],
+				value: [String],
+			},
+		],
 		stats: {
 			connections: [
 				// TODO : Fix a maximum length or date.
